@@ -1,0 +1,737 @@
+<?php
+ob_start();
+?>
+<?php
+    session_start();
+    require 'dbconfig/config.php';
+?>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  	<link rel="stylesheet" type="text/css" href="style.css">
+  	<script type="text/javascript" src="main.js"></script>
+  </head>
+  <body>
+  <!-- Navigation Bar Starts -->
+  	<div class="navigation">
+	  	<nav class="navbar navbar-default navbar-fixed-top">
+		  <div class="container">
+		    <div class="navbar-header">
+		      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span> 
+		      </button>
+		      <a class="navbar-brand" href="#"><img src="images/final/Logo.png" width="50%"></a>
+		    </div>
+		    <div class="collapse navbar-collapse menu" id="myNavbar">
+		      <ul class="nav navbar-nav navbar-right">
+		        <li><a href="#">Home</a></li>
+		        <li><a href="#">About</a></li>
+		        <li><a href="#">Gallery</a></li> 
+		        <li><a href="#">Video</a></li>
+		        <li><a href="#">Contact</a></li> 
+		        <li data-toggle="modal" data-target="#myModal"><a href="#">Login</a></li>
+		      </ul>
+		      <!-- <ul class="nav navbar-nav navbar-right">
+		        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+		        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+		      </ul> -->
+		    </div>
+		  </div>
+		</nav>
+		<!--Popup Login page code starts-->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <a href="index.html" class="close" data-dismiss="modal" aria-hidden="true" class="btn btn-default"><span class="glyphicon glyphicon-remove"></span></a>
+                            <h4 class="modal-title" id="myModalLabel">Login/Registration - <a href="index.html">DM</a></h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-8" style="border-right:1px dotted #C2C2C2; padding-right:30px;">
+                                    <ul class="nav nav-tabs">
+                                        <li class="active"><a href="#Login" data-toggle="tab">Login</a></li>
+                                        <li><a href="#Registration" data-toggle="tab">Registration</a></li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="Login">
+                                            <form role="form" class="form-horizontal">
+                                                <div class="form-group">
+                                                    <label for="email" class="col-sm-2 control-label">Email</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="email" name="Email" class="form-control" id="email1" placeholder="Email"/>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="exampleInputPassword1" class="col-sm-2 control-label">Password</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="email" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password"/>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-2">
+                                                        
+                                                    </div>
+                                                    <div class="col-sm-10">
+                                                        <button type="submit" name="sub" class="btn btn-primary btn-sm">Submit</button>
+                                                        <a href="javascript:;">Forgot your password</a>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                            <?php
+                                                 
+                                                    if(isset($_POST['sub'])){
+                                                       // echo '<script type="text/javascript"> alert("Login button clicked")</script>';
+                                                        
+                                                        $Email = $_POST['Email'];
+                                                        $password = $_POST['password'];                                                        
+                                                        
+                                                        $query = "select * from userinfo where Email='$Email' AND password='$password'";
+                                                        $query_run = mysqli_query($con, $query);
+                                                        //echo $query_run;
+                                                        if(mysqli_num_rows($query_run)>0){
+                                                            $query = "select d1 from userinfo";
+                                                            $result = mysqli_query($con,$query);
+
+                                                            $_SESSION['Email'] = $Email;
+                                                            header('location:home.php');   
+                                                            
+                                                        }
+                                                        else
+                                                        {
+                                                            echo '<script type="text/javascript"> alert("Invalid Credentials")</script>';
+                                                        }
+                                                    }
+                                                ?>
+                                        </div>
+                                        <div class="tab-pane" id="Registration">
+                                            <form role="form" class="form-horizontal">
+                                                <div class="form-group">
+                                                    <label for="email" class="col-sm-2 control-label">Name</label>
+                                                        <div class="col-sm-10">
+                                                            <div class="row">
+                                                                <!-- <div class="col-md-3">
+                                                                    <select class="form-control">
+                                                                        <option>Mr.</option>
+                                                                        <option>Ms.</option>
+                                                                        <option>Mrs.</option>
+                                                                    </select>
+                                                                </div> -->
+                                                                <div class="col-md-12">
+                                                                    <input type="text" name="Name" class="form-control" placeholder="Name"/>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label" for="email">Email</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="email" name="Email" class="form-control" id="email" placeholder="Email"/>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label">Select</label>
+                                                    <div class="col-sm-10">
+                                                        <label class="radio-inline"><input name = "select" type="radio" value="matrimony" name="optradio">Matrimony</label>
+                                                        <label class="radio-inline"><input name = "select" type="radio" value="Dating" name="optradio">Dating</label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label">Sex</label>
+                                                    <div class="col-sm-10">
+                                                            <label class="radio-inline"><input name = "sex" type="radio" value="male" >Male</label>
+                                                            <label class="radio-inline"><input name = "sex" type="radio" value="female" >Female</label>
+                                                    </div>
+                                                </div>
+                                            	<div class="form-group">
+	                                                <label class="col-sm-2 control-label">
+	                                                    Age</label>
+	                                                <div class="col-sm-10">
+	                                                    <input name="Age" type="number" class="form-control" id="email" placeholder="" />
+	                                                </div>
+	                                            </div>
+                                                <div class="form-group">
+	                                                <label class="col-sm-2 control-label">
+	                                                    DOB</label>
+	                                                <div class="col-sm-10">
+	                                                    <input name="DOB" type="date" class="form-control" id="email" placeholder=""/>
+	                                                </div>
+	                                            </div>
+                                                <div class="form-group">
+	                                                <label class="col-sm-2 control-label">
+	                                                    Time of birth</label>
+	                                                <div class="col-sm-10">
+	                                                    <input name="Timeofbirth" type="time" class="form-control" id="email" placeholder="" />
+	                                            	</div>
+                                            	</div>
+                                                <div class="form-group">
+	                                                <label class="col-sm-2 control-label">
+	                                                    Place of Birth</label>
+	                                                <div class="col-sm-10">
+	                                                    <input name="Placeofbirth" type="text" class="form-control" id="email" placeholder="" />
+	                                            	</div>
+                                            	</div>
+                                                <div class="form-group">
+	                                                <label for="email" class="col-sm-2 control-label">
+	                                                    Languages</label>
+	                                                <div class="col-sm-10">
+	                                                    <input name="Languages" type="text" class="form-control" id="email" placeholder="" />
+	                                                </div>
+	                                            </div>
+                                                <div class="form-group">
+	                                                <label for="email" class="col-sm-2 control-label">
+	                                                    Height</label>
+	                                                <div class="col-sm-10">
+	                                                    <input name="Height" type="height" class="form-control" id="email" placeholder="" />
+	                                                </div>
+	                                            </div>
+                                                <div class="form-group">
+	                                                <label for="email" class="col-sm-2 control-label">
+	                                                    Weight</label>
+	                                                <div class="col-sm-10">
+	                                                    <input name="Weight" type="weight" class="form-control" id="email" placeholder="" />
+	                                            	</div>
+                                            	</div>
+                                                <div class="form-group">
+	                                                <label for="email" class="col-sm-2 control-label">
+	                                                    Location</label>
+	                                                <div class="col-sm-10">
+	                                                    <input name="Location" type="text" class="form-control" id="email" placeholder="" />
+	                                                </div>
+	                                        	</div>
+                                                <div class="form-group">
+	                                                <label for="email" class="col-sm-2 control-label">
+	                                                    Education</label>
+	                                                <div class="col-sm-10">
+	                                                    <input name="Education" type="text" class="form-control" id="email" placeholder="" />
+	                                                </div>
+	                                            </div>
+                                                <div class="form-group">
+	                                                <label for="email" class="col-sm-2 control-label">
+	                                                    Interests</label>
+	                                                <div class="col-sm-10">
+	                                                    <input name="Interests" type="text" class="form-control" id="email" placeholder="" />
+	                                                </div>
+	                                            </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label" for="password">Password</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="password" name="password" class="form-control" id="password" placeholder="Password"/>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label" for="password">Password-Again</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="password" name="password2" class="form-control" id="password" placeholder="Password-Again"/>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-2">
+                                                        
+                                                    </div>
+                                                    <div class="col-sm-10">
+                                                        <button type="submit" name="submit" class="btn btn-primary btn-sm">Register</button>
+                                                        <button type="button" class="btn btn-primary btn-sm">Cancel</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                            <?php
+                                                if(isset($_POST['submit'])){
+                                                    //echo '<script type="text/javascript"> alert("Sign-Up btn clicked")</script>';
+                                                    $Name = $_POST['Name'];
+                                                    $FirstName = $_POST['FirstName'];
+                                                    $Email = $_POST['Email'];
+                                                    $select = $_POST['select'];
+                                                    $sex = $_POST['sex'];
+                                                    $Age = $_POST['Age'];
+                                                    $DOB = $_POST['DOB'];
+                                                    $Timeofbirth = $_POST['Timeofbirth'];
+                                                    $Placeofbirth = $_POST['Placeofbirth'];
+                                                    $Languages = $_POST['Languages'];
+                                                    $Height = $_POST['Height'];
+                                                    $Weight = $_POST['Weight'];
+                                                    $Location = $_POST['Location'];
+                                                    $Education = $_POST['Education'];
+                                                    $Interests = $_POST['Interests'];
+                                                    $password = $_POST['password'];
+                                                    $password2 = $_POST['password2'];
+
+                                                    if($password == $password2){
+                                                        $query = "select * from userinfo where Email ='$Email'";
+                                                        $query_run = mysqli_query($con,$query);
+
+                                                        if(mysqli_num_rows($query_run)>0){
+                                                            echo '<script type="text/javascript"> alert("Email ID is already exists, Try with another Email ID ")</script>';
+                                                        }
+                                                        else
+                                                        {
+                                                            $query = "insert into userinfo values('','$Name','$FirstName','$Email','$select','$sex','$Age','$DOB','$Timeofbirth','$Placeofbirth','$Languages','$Height','$Weight','$Location','$Education','$Interests','$password','$password2')";
+                                                            $query_run = (mysqli_query($con,$query));
+
+                                                            if ($query_run){
+                                                                echo '<script type="text/javascript"> alert("Rigistered Successfully. Click ok to Login")</script>';
+                                                            }
+                                                            else
+                                                            {
+                                                                echo '<script type="text/javascript"> alert("Error")</script>';
+                                                            }
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        echo '<script type="text/javascript"> alert("Invalid Email ID or Password!!!! Try again with the valid credentials")</script>';
+                                                    }
+                                                    
+                                                }
+                                            ?>
+                                        </div>
+                                    </div>
+                                    <div id="OR" class="hidden-xs">OR</div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="row text-center sign-with">
+                                        <div class="col-sm-12">
+                                            <h3>Sign in with</h3>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="btn-group btn-group-justified">
+                                                <a href="#" class="btn btn-primary">Facebook</a>
+                                                <a href="#" class="btn btn-danger">Google</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Popup Login page code ends -->
+	</div>	
+	<!-- Navigation Bar Ends -->
+
+	<!-- Banner Starts -->
+	<div class="banner">
+		<div class="container-fluid">
+			<div id="carousel-a" class="carousel slide" dataride="carousel">
+				<ol class="carousel-indicators">
+					<li data-target="#carousel-a" data-slide-to="0"></li>
+					<li data-target="#carousel-a" data-slide-to="1"></li>
+					<li data-target="#carousel-a" data-slide-to="2"></li>
+					<li data-target="#carousel-a" data-slide-to="3"></li>
+				</ol>
+				<div class="carousel-inner" role="listbox">
+	    			<div class="item active">
+				      <img src="images/bnr/bnr5(1).jpg" alt="Chania" width="100%">
+					      <div class="carousel-caption">
+					        <h3></h3>
+					        <p></p>
+					     </div>
+				    </div>
+					<div class="item">
+				      <img src="images/bnr/bnr1.jpg" alt="banner" width="100%">
+					      <div class="carousel-caption">
+					        <h3></h3>
+					        <p></p>
+					      </div>
+				    </div>
+					<div class="item">
+				      <img src="images/bnr/bnr2.jpg" alt="banner" width="100%">
+					      <div class="carousel-caption">
+					        <h3></h3>
+					        <p></p>
+					      </div>
+			    	</div>
+					<div class="item">
+				      <img src="images/bnr/bnr3.jpg" alt="banner" width="100%">
+					      <div class="carousel-caption">
+					        <h3></h3>
+					        <p></p>
+					      </div>
+			   		 </div>
+			   		 <!-- <a class="left carousel-control-a" href="#carousel-a" role="button" data-slide="prev">
+					    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+					    <span class="sr-only">Previous</span>
+					  </a>
+					  <a class="right carousel-control-a" href="#carousel-a" role="button" data-slide="next">
+					    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+					    <span class="sr-only">Next</span>
+					  </a> -->
+	            </div>
+			</div>
+		</div>
+	</div>	
+	<!-- Banner Ends -->
+
+	<!-- Profiles slider starts -->
+	<div class="profiles">
+		<div class="container">
+			<div class="profile-inner">
+				<div class="row">
+					<div class="matrimonyprofile">
+						<div class="col-md-4">
+							<h3 class="text-center">Matrimony</h3>
+							<div id="carousel-b" class="carousel slide" dataride="carousel" data-pause="hover">
+								<div class="carousel-inner" role="listbox">
+					    			<div class="item active">
+								      <img src="images/first.jpg" alt="Chania" width="100%">
+									      <div class="carousel-caption">
+									        <h3></h3>
+									        <p></p>
+									     </div>
+								    </div>
+									<div class="item">
+								      <img src="images/Second.jpg" alt="banner" width="100%">
+									      <div class="carousel-caption">
+									        <h3></h3>
+									        <p></p>
+									      </div>
+								    </div>
+									<div class="item">
+								      <img src="images/Third.jpg" alt="banner" width="100%">
+									      <div class="carousel-caption">
+									        <h3></h3>
+									        <p></p>
+									      </div>
+							    	</div>
+									<div class="item">
+								      <img src="images/profiles/1.jpg" alt="banner" width="100%">
+									      <div class="carousel-caption">
+									        <h3></h3>
+									        <p></p>
+									      </div>
+							   		 </div>
+							   		 <a class="left carousel-control" href="#carousel-b" role="button" data-slide="prev">
+									    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+									    <span class="sr-only">Previous</span>
+									  </a>
+									  <a class="right carousel-control" href="#carousel-b" role="button" data-slide="next">
+									    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+									    <span class="sr-only">Next</span>
+									  </a>
+					            </div>
+							</div>
+						</div>
+					</div>
+					<div class="datingprofile">
+						<div class="col-md-4">
+							<h3 class="text-center">Dating</h3>
+							<div id="carousel-c" class="carousel slide" dataride="carousel" data-pause="hover">
+								<div class="carousel-inner" role="listbox">
+					    			<div class="item active">
+								      <img src="images/first.jpg" alt="Chania" width="100%">
+									      <div class="carousel-caption">
+									        <h3></h3>
+									        <p></p>
+									     </div>
+								    </div>
+									<div class="item">
+								      <img src="images/Second.jpg" alt="banner" width="100%">
+									      <div class="carousel-caption">
+									        <h3></h3>
+									        <p></p>
+									      </div>
+								    </div>
+									<div class="item">
+								      <img src="images/Third.jpg" alt="banner" width="100%">
+									      <div class="carousel-caption">
+									        <h3></h3>
+									        <p></p>
+									      </div>
+							    	</div>
+									<div class="item">
+								      <img src="images/profiles/1.jpg" alt="banner" width="100%">
+									      <div class="carousel-caption">
+									        <h3></h3>
+									        <p></p>
+									      </div>
+							   		 </div>
+							   		 <a class="left carousel-control" href="#carousel-c" role="button" data-slide="prev">
+									    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+									    <span class="sr-only">Previous</span>
+									  </a>
+									  <a class="right carousel-control" href="#carousel-c" role="button" data-slide="next">
+									    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+									    <span class="sr-only">Next</span>
+									  </a>
+					            </div>
+							</div>
+						</div>
+					</div>
+					<div class="service">
+						<div class="col-md-4">
+							<h3 class="text-center">Services</h3>
+							<div id="carousel-d" class="carousel slide" dataride="carousel" data-pause="hover">
+								<div class="carousel-inner" role="listbox">
+					    			<div class="item active">
+								      <img src="images/first.jpg" alt="Chania" width="100%">
+									      <div class="carousel-caption">
+									        <h3></h3>
+									        <p></p>
+									     </div>
+								    </div>
+									<div class="item">
+								      <img src="images/Second.jpg" alt="banner" width="100%">
+									      <div class="carousel-caption">
+									        <h3></h3>
+									        <p></p>
+									      </div>
+								    </div>
+									<div class="item">
+								      <img src="images/Third.jpg" alt="banner" width="100%">
+									      <div class="carousel-caption">
+									        <h3></h3>
+									        <p></p>
+									      </div>
+							    	</div>
+									<div class="item">
+								      <img src="images/profiles/1.jpg" alt="banner" width="100%">
+									      <div class="carousel-caption">
+									        <h3></h3>
+									        <p></p>
+									      </div>
+							   		 </div>
+							   		 <a class="left carousel-control" href="#carousel-d" role="button" data-slide="prev">
+									    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+									    <span class="sr-only">Previous</span>
+									  </a>
+									  <a class="right carousel-control" href="#carousel-d" role="button" data-slide="next">
+									    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+									    <span class="sr-only">Next</span>
+									  </a>
+					            </div>
+							</div>
+						</div>
+					</div>
+				</div>
+			<div>	
+		</div>
+	</div>
+	</div>
+	</div>	
+	<!-- Profiles slider Ends -->
+
+	<!-- Search fields Starts -->
+	<div class="search">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-4">
+					
+				</div>
+				<div class="col-md-4">
+					<h3 class="text-center">Find Someone Special</h3>
+					<form class="text-center">
+					    <label class="radio-inline">
+					      <input type="radio" name="optradio">Dating
+					    </label>
+					    <label class="radio-inline">
+					      <input type="radio" name="optradio">Matrimony
+					    </label>
+					    <!-- <label class="radio-inline">
+					      <input type="radio" name="optradio">Option 3
+					    </label> -->
+						  <div class="">
+						    <label>Age</label>
+						    <input type="number" class="form-control" id="mail">
+						  </div>
+						  <div class="">
+						    <label>To</label>
+						    <input type="number" class="form-control" id="mail">
+						  </div>
+
+						  <div class="">
+							  <label for="sel1">Country</label>
+							  <select class="form-control" id="sel1">
+							    <option>India</option>
+							    <option>France</option>
+							    <option>Australia</option>
+							    <option>England</option>
+							  </select>
+							</div>
+					</form>
+				</div>
+				<div class="col-md-4">
+					<button type="submit" class="btt"><img src="images/final/search-icon.png" width="50%"></button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Search fields Ends -->
+
+	<!-- Stories slider starts -->
+	<div class="stories">
+		<div class="container">
+			<div id="slider1">
+                <div class="sld active">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="stories2">
+                                <img src="images/final/happy.png" width="100%">
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <h3><strong>HAPPY MOMENTS</strong></h3>
+                            <span ><strong>"Hrithik</strong> <img src="images/final/love-icon-red.png" width=3% height=3%> <strong>Karina"</strong></span>
+                        <p class="stories4">
+                           "You knew I could meet the right 
+                            man for me, Dating & Matrimony 
+                            website helped me make room to 
+                            be open and clear when I met the 
+                            man who is now my husband. Just 
+                            2 months after meeting, we got 
+                            married. Your tough love, no-re
+                            sponse, and very clear minded 
+                            approach were invaluable and 
+                            get me focused on my goal. 
+                            Thank you!!!!"1
+                        </p>
+                            <a href="#" class="btn btn-primary btn-danger"> More Stories</a>
+                        </div>
+                    </div>
+                </div>    
+                    <div class="sld">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="stories2">
+                                    <img src="images/final/happy.png" width="100%">
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <h3><strong>HAPPY MOMENTS</strong></h3>
+                                <span ><strong>"Hrithik</strong> <img src="images/final/love-icon-red.png" width=3% height=3%> <strong>Karina"</strong></span>
+                            <p class="stories4">
+                               "You knew I could meet the right 
+                                man for me, Dating & Matrimony 
+                                website helped me make room to 
+                                be open and clear when I met the 
+                                man who is now my husband. Just 
+                                2 months after meeting, we got 
+                                married. Your tough love, no-re
+                                sponse, and very clear minded 
+                                approach were invaluable and 
+                                get me focused on my goal. 
+                                Thank you!!!!"2
+                            </p>
+                                <a href="#" class="btn btn-primary btn-danger"> More Stories</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sld">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="stories2">
+                                    <img src="images/final/happy.png" width="100%">
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <h3><strong>HAPPY MOMENTS</strong></h3>
+                                <span ><strong>"Hrithik</strong> <img src="images/final/love-icon-red.png" width=3% height=3%> <strong>Karina"</strong></span>
+                            <p class="stories4">
+                               "You knew I could meet the right 
+                                man for me, Dating & Matrimony 
+                                website helped me make room to 
+                                be open and clear when I met the 
+                                man who is now my husband. Just 
+                                2 months after meeting, we got 
+                                married. Your tough love, no-re
+                                sponse, and very clear minded 
+                                approach were invaluable and 
+                                get me focused on my goal. 
+                                Thank you!!!!"3
+                            </p>
+                                <a href="#" class="btn btn-primary btn-danger"> More Stories</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="stories1">
+                        <img src="images/final/less_than.png" class="arrow" id="left-arrow" width=20% height=20%>
+                        <img src="images/final/grater_than.png" class="arrow" id="right-arrow" width=20% height=20%>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    
+                </div>
+            </div>
+		</div>
+	</div>
+	<!-- Stories slider ends -->
+
+	   <!-- Image and video Gallery starts-->
+        <div class="imgvid">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h3 class="text-center">IMAGE GALLERY</h3>
+                            <div class="imgvid1">
+                                <img src="images/profiles/16.jpg" class="imgstyle" width="175px" height="150px">
+                                <img src="images/profiles/11.jpg" class="imgstyle" width="175px" height="150px">
+                                <img src="images/profiles/10.jpg" class="imgstyle" width="175px" height="150px">
+                                <img src="images/profiles/17.jpg" class="imgstyle" width="175px" height="150px">
+                            </div>
+                            <a href="video.html" id="list" class="btn btn-sm btn-danger">More</a>
+                    </div>
+                    <div class="col-md-4 center-block">
+                        <div class="imgvi8 ">
+                            <img src="images/final/gallery-center.png" width="117%">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <h3 class="text-center">VIDEO GALLERY</h3>
+                            <div class="imgvid1">
+                                <a href="#"><img src="images/profiles/11.jpg" class="imgstyle" width="175px" height="150px"></a>
+                                <a href="#"><img src="images/profiles/12.jpg" class="imgstyle" width="175px" height="150px"></a>
+                                <a href="#"><img src="images/profiles/13.jpg" class="imgstyle" width="175px" height="150px"></a>
+                                <a href="#"><img src="images/profiles/14.jpg" class="imgstyle" width="175px" height="150px"></a>                           
+                            </div>
+                            <a href="video.html" id="list" class="btn btn-sm btn-danger">More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Image and video Gallery ends -->
+		 <!-- Footer starts -->
+        <div class="ftr">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-5">
+                        <h3>ABOUT US</h3>
+                        <a href="#">Registration</a><br>
+                        <a href="#">Advice</a><br>
+                        <a href="#">Terms & Condition</a><br>
+                        <a href="#">Trust Charter</a><br>
+                        <a href="#">Help</a><br>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="ftr1 tex-left">
+                            <h3>SERVICES</h3>
+                                <a href="#">D M Mobile app</a><br>
+                                <a href="#">Events</a><br>
+                                <a href="#">Love Stories</a><br>
+                                <a href="#">Callender</a><br>
+                            </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="ftr2 text-left">
+                            <h3>D M In Europe</h3>
+                                <a href="#">place in France</a><br>
+                                <a href="#">Contact In Spain</a><br>
+                                <a href="#">Meetings</a><br>
+                                <a href="#">Contacts</a><br>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer Ends -->
+  </body>
+</html>

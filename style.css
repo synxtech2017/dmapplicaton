@@ -1,0 +1,191 @@
+/*NavBar Stars*/
+.navigation .navbar-brand{
+	padding: 0px;
+}
+.navigation{
+	/*border-top:5px solid #ed1c24;*/
+}
+.navigation .navbar-default{
+	background-color: white;
+	border-color: white;
+	border-top: 5px solid #ed1c24;
+	
+}
+.navigation .navbar-nav>li{
+    margin: 2px;
+}
+.navigation .navbar-nav>li>a:hover{
+	color: white;
+    background-color: #ed1c24;
+}
+.menu a {
+    color: white;
+    text-decoration: none;
+    background-color: #f58220;
+    border-radius:50%;
+    text-align: center;
+}
+.navigation .navbar-default .navbar-nav>li>a {
+    color: white;
+}
+.nav-tabs {
+    margin-bottom: 15px;
+}
+.sign-with {
+    margin-top: 25px;
+    padding: 20px;
+}
+#OR {
+    height: 30px;
+    width: 30px;
+    border: 1px solid #C2C2C2;
+    border-radius: 50%;
+    font-weight: bold;
+    line-height: 28px;
+    text-align: center;
+    font-size: 12px;
+    float: right;
+    position: absolute;
+    right: -16px;
+    top: 40%;
+    z-index: 1;
+    background: #DFDFDF;
+}
+/*NavBar Ends*/
+/*Banner starts*/
+.banner{
+	padding-top:60px; 
+	border-bottom: 5px solid #f58220;
+
+}
+.banner .carousel-inner>.item>img{
+	height: 500px;
+	width: 100%;
+}
+.banner .container-fluid{
+	padding-right: 0px;
+	padding-left: 0px;
+}
+.banner .carousel-control.left{
+	background-image:linear-gradient(to right,rgba(0,0,0,0) 0,rgba(0,0,0,.0001) 100%);
+}
+.banner .carousel-control.right{
+	background-image:linear-gradient(to left,rgba(0,0,0,0) 0,rgba(0,0,0,.0001) 100%);
+}
+/*Banner Ends*/
+/*Profile slider starts*/
+.profiles {
+    background-image: url(images/final/profile-back.jpeg);
+    background-repeat: repeat-x;
+}
+.profile-inner {
+    margin-right: -40px;
+    margin-left: -40px;
+    padding-bottom: 80px;
+    padding-top: 25px;
+}
+.profiles .carousel-inner>.item>img{
+	height: 200px;
+	width: 325px;
+}
+.profiles .carousel-inner{
+	margin: auto;
+	height: 200px;
+	width: 325px;
+}
+.matrimonyprofile .carousel-control.left{
+	background-image:linear-gradient(to left,rgba(0,0,0,0.9) 0,#333 100%);
+}
+.matrimonyprofile .carousel-control.right{
+	background-image:linear-gradient(to right,rgba(0,0,0,0.9) 0,#333 100%);
+}
+
+.datingprofile .carousel-control.left{
+	background-image:linear-gradient(to left,rgba(0,0,0,0.9) 0,#333 100%);
+}
+.datingprofile .carousel-control.right{
+	background-image:linear-gradient(to right,rgba(0,0,0,0.9) 0,#333 100%);
+}
+
+.service .carousel-control.left{
+	background-image:linear-gradient(to right,rgba(0,0,0,0.9) 0,#333 100%);
+}
+.service .carousel-control.right{
+	background-image:linear-gradient(to right,rgba(0,0,0,0.9) 0,#333 100%);
+}
+/*profile slider ends*/
+
+/*Serach fields starts*/
+.search {
+	background-color: #ed1c24;
+	color: white;
+}
+#mail{
+	width: 50px;
+	margin: 5px;
+    display: inline-block;
+}
+select#sel1 {
+    display: inline-block;
+    width: 175px;
+    margin: 10px;
+}
+.btt{
+	background-color: #ed1c24;
+	padding: 50px;
+	border:none;
+}
+/*Search fields ends*/
+
+/*Stories slider starts*/
+.stories{
+	padding: 10px;
+	border-bottom: 5px solid #f58220;
+}
+.stories p {
+    margin: 0 0 10px;
+    text-align: justify;
+    font-size: 18px;
+}
+.stories1{
+	padding-left: 65px;
+}
+.arrow{
+	cursor: pointer;
+}
+.sld.active{
+	display: inline-block;
+	height: 100%;
+	width: 100%;
+}
+.sld{
+	display: none;
+}
+/*Stories slider Ends*/
+/*image gallery & video gallery starts*/
+.imgvi8 {
+    vertical-align: middle;
+    padding: 0;
+    margin-right: 29px;
+    margin-left: -30px;
+    margin-top: 110px;
+}
+.imgstyle {
+    margin-bottom: 5px;
+}
+.imgvid1 {
+    border: 2px solid #f58220;
+}
+/*image gallery & video gallery ends*/
+/*Footer starts*/
+.ftr a {
+    color: white;
+    text-decoration: none;
+
+}
+.ftr {
+    background-color: #ed1c24;
+    color: white;
+    margin-top: 20px;
+}
+/*Footer ends*/
